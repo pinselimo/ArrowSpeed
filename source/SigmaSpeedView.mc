@@ -77,11 +77,14 @@ class SigmaSpeedView extends WatchUi.DataField {
 
         // Set the foreground color and value
         var value = View.findDrawableById("value");
+        var label = View.findDrawableById("label");
         
         if (getBackgroundColor() == Graphics.COLOR_BLACK) {
             value.setColor(Graphics.COLOR_WHITE);
+            label.setColor(Graphics.COLOR_WHITE);
         } else {
             value.setColor(Graphics.COLOR_BLACK);
+            label.setColor(Graphics.COLOR_BLACK);
         }
         value.setText(speed.format("%.2f"));
 
@@ -96,24 +99,26 @@ class SigmaSpeedView extends WatchUi.DataField {
         var width = value.width * 0.1;
         var start = centerX - width;
         var end = centerX + width;
-        
-        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
-        dc.fillPolygon(
-                [
-                    [start, centerY - offsetY],
-                    [centerX, centerY - height],
-                    [end, centerY - offsetY]
-                ]
-            );
 
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
-        dc.fillPolygon(
-                [
-                    [start, centerY + offsetY],
-                    [centerX, centerY + height],
-                    [end, centerY + offsetY]
-                ]
-            );
+        if (faster) {
+        
+            dc.fillPolygon(
+                    [
+                        [start, centerY - offsetY],
+                        [centerX, centerY - height],
+                        [end, centerY - offsetY]
+                    ]
+                );
+        } else {
+            
+            dc.fillPolygon(
+                    [
+                        [start, centerY + offsetY],
+                        [centerX, centerY + height],
+                        [end, centerY + offsetY]
+                    ]
+                );
+        }
 
         arrows.draw(dc);
     }
