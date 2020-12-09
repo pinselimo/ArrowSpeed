@@ -1,5 +1,5 @@
 <strings>
-    <string id="AppName">${appName}</string>
+    <string id="AppName">SigmaSpeed</string>
 
-    <string id="label">My Value</string>
+    <string id="label">Speed</string>
 </strings>
