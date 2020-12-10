@@ -4,15 +4,23 @@ using Toybox.System;
 
 class SigmaSpeedView extends WatchUi.DataField {
 
-    hidden var speed;
-    hidden var faster;
+    const STATUTE_UNIT_FACTOR = 0.621371f;
+
+    hidden var speed = 0.0f;
+    hidden var faster = false;
+    hidden var adjustment = 3.6f;
+
     var arrows;
 
     function initialize() {
         DataField.initialize();
-        speed = 0.0f;
-        faster = null;
         arrows = new Rez.Drawables.arrows();
+
+        var distanceUnits = System.getDeviceSettings().distanceUnits;
+
+        if (distanceUnits == System.UNIT_STATUTE) {
+            adjustment *= STATUTE_UNIT_FACTOR;
+        }
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -109,7 +117,9 @@ class SigmaSpeedView extends WatchUi.DataField {
             value.setColor(Graphics.COLOR_BLACK);
             label.setColor(Graphics.COLOR_BLACK);
         }
-        value.setText(speed.format("%.2f"));
+
+        var speedAdjusted = speed * adjustment;
+        value.setText(speedAdjusted.format("%.2f"));
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
