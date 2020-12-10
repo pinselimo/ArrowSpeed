@@ -6,8 +6,8 @@ class SigmaSpeedView extends WatchUi.DataField {
 
     const STATUTE_UNIT_FACTOR = 0.621371f;
 
-    hidden var speed = 0.0f;
-    hidden var faster = false;
+    hidden var value = "__._";
+    hidden var faster = null;
     hidden var adjustment = 3.6f;
     hidden var units = "km";
 
@@ -89,19 +89,17 @@ class SigmaSpeedView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
         // See Activity.Info in the documentation for available information.
-        speed = 0.0f;
-        if(info has :currentSpeed){
-            if(info.currentSpeed != null){
-                speed = info.currentSpeed;
+        if(info has :currentSpeed and info.currentSpeed != null) {
+            var speed = info.currentSpeed;
+            value = (speed * adjustment).format("%.1f");
+            
+            if(info has :averageSpeed and info.averageSpeed != null) {
+                faster = speed > info.averageSpeed;
             }
+        } else {
+            value = "__._";
+            faster = null;
         }
-        var avg = 0.0f;
-        if(info has :averageSpeed){
-            if(info.averageSpeed != null){
-                avg = info.averageSpeed;
-            }
-        }
-        faster = speed > avg;
     }
 
     // Display the value you computed here. This will be called
@@ -114,57 +112,55 @@ class SigmaSpeedView extends WatchUi.DataField {
         View.findDrawableById("Background").setColor(getBackgroundColor());
 
         // Set the foreground color and value
-        var value = View.findDrawableById("value");
-        var label = View.findDrawableById("label");
+        var valueView = View.findDrawableById("value");
+        var labelView = View.findDrawableById("label");
         
         if (getBackgroundColor() == Graphics.COLOR_BLACK) {
-            value.setColor(Graphics.COLOR_WHITE);
-            label.setColor(Graphics.COLOR_WHITE);
+            valueView.setColor(Graphics.COLOR_WHITE);
+            labelView.setColor(Graphics.COLOR_WHITE);
         } else {
-            value.setColor(Graphics.COLOR_BLACK);
-            label.setColor(Graphics.COLOR_BLACK);
+            valueView.setColor(Graphics.COLOR_BLACK);
+            labelView.setColor(Graphics.COLOR_BLACK);
         }
 
-        var speedAdjusted = speed * adjustment;
-        value.setText(speedAdjusted.format("%.1f"));
+        valueView.setText(value);
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
 
-        var offsetY = value.height * 0.1;
-        var centerY = value.locY + value.height * 0.4;
-        var height = value.height * 0.3;
+        var offsetY = valueView.height * 0.1;
+        var centerY = valueView.locY + valueView.height * 0.4;
+        var height = valueView.height * 0.3;
 
-        var centerX = value.locX - value.width*0.65;
-        var width = value.width * 0.1;
+        var centerX = valueView.locX - valueView.width*0.65;
+        var width = valueView.width * 0.1;
         var start = centerX - width;
         var end = centerX + width;
 
-        var centerXUnits = value.locX + value.width*0.65;
+        var centerXUnits = valueView.locX + valueView.width*0.65;
         
         dc.drawText(centerXUnits, centerY - dc.getFontHeight(Graphics.FONT_TINY), Graphics.FONT_TINY, units, Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(centerXUnits, centerY, Graphics.FONT_TINY, "h", Graphics.TEXT_JUSTIFY_LEFT);
 
-        if (faster) {
-        
-            dc.fillPolygon(
-                    [
-                        [start, centerY - offsetY],
-                        [centerX, centerY - height],
-                        [end, centerY - offsetY]
-                    ]
-                );
-        } else {
-            
-            dc.fillPolygon(
-                    [
-                        [start, centerY + offsetY],
-                        [centerX, centerY + height],
-                        [end, centerY + offsetY]
-                    ]
-                );
+        if (faster != null) {
+            if (faster) {
+                dc.fillPolygon(
+                        [
+                            [start, centerY - offsetY],
+                            [centerX, centerY - height],
+                            [end, centerY - offsetY]
+                        ]
+                    );
+            } else {
+                dc.fillPolygon(
+                        [
+                            [start, centerY + offsetY],
+                            [centerX, centerY + height],
+                            [end, centerY + offsetY]
+                        ]
+                    );
+            }
+            arrows.draw(dc);
         }
-
-        arrows.draw(dc);
     }
 }
