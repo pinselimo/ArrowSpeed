@@ -119,7 +119,7 @@ class SigmaSpeedView extends WatchUi.DataField {
         }
 
         var speedAdjusted = speed * adjustment;
-        value.setText(speedAdjusted.format("%.2f"));
+        value.setText(speedAdjusted.format("%.1f"));
 
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
