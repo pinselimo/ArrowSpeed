@@ -139,7 +139,7 @@ class SigmaSpeedView extends WatchUi.DataField {
         var start = centerX - width;
         var end = centerX + width;
 
-        var centerXUnits = valueView.locX + valueView.width*0.65;
+        var centerXUnits = valueView.locX + valueView.width*0.5+5;
         
         dc.drawText(centerXUnits, centerY - dc.getFontHeight(Graphics.FONT_TINY), Graphics.FONT_TINY, units, Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(centerXUnits, centerY, Graphics.FONT_TINY, "h", Graphics.TEXT_JUSTIFY_LEFT);
