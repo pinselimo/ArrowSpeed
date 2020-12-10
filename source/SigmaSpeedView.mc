@@ -72,6 +72,9 @@ class SigmaSpeedView extends WatchUi.DataField {
     // Display the value you computed here. This will be called
     // once a second when the data field is visible.
     function onUpdate(dc) {
+        if(dc has :setAntiAlias) {
+            dc.setAntiAlias(true);
+        }
         // Set the background color
         View.findDrawableById("Background").setColor(getBackgroundColor());
 
