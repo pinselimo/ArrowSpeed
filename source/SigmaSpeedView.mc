@@ -39,9 +39,9 @@ class SigmaSpeedView extends WatchUi.DataField {
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
             var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY - 16;
+            labelView.locY = labelView.locY;
             var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY + 7;
+            valueView.locY = valueView.locY;
         }
 
         View.findDrawableById("label").setText(Rez.Strings.label);
@@ -95,7 +95,7 @@ class SigmaSpeedView extends WatchUi.DataField {
         var centerY = value.locY + value.height * 0.4;
         var height = value.height * 0.3;
 
-        var centerX = value.locX + value.width*0.8;
+        var centerX = value.locX + value.width*0.7;
         var width = value.width * 0.1;
         var start = centerX - width;
         var end = centerX + width;
