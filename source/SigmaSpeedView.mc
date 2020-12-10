@@ -118,7 +118,7 @@ class SigmaSpeedView extends WatchUi.DataField {
         var centerY = value.locY + value.height * 0.4;
         var height = value.height * 0.3;
 
-        var centerX = value.locX + value.width*0.7;
+        var centerX = value.locX - value.width*0.7;
         var width = value.width * 0.1;
         var start = centerX - width;
         var end = centerX + width;
