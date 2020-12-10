@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.System;
 
 class SigmaSpeedView extends WatchUi.DataField {
 
@@ -38,13 +39,32 @@ class SigmaSpeedView extends WatchUi.DataField {
         // Use the generic, centered layout
         } else {
             View.setLayout(Rez.Layouts.MainLayout(dc));
-            var labelView = View.findDrawableById("label");
-            labelView.locY = labelView.locY;
-            var valueView = View.findDrawableById("value");
-            valueView.locY = valueView.locY;
-        }
 
-        View.findDrawableById("label").setText(Rez.Strings.label);
+            var labelView = View.findDrawableById("label");
+            var valueView = View.findDrawableById("value");
+
+            labelView.setText(Rez.Strings.label);
+            var heightAvailable = dc.getHeight() - dc.getFontHeight(Graphics.FONT_TINY) - 10; // max padding -> 10
+            var paddingValue, fontValue;
+
+            if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_THAI_HOT)) {
+                fontValue = Graphics.FONT_NUMBER_THAI_HOT;
+                paddingValue = 5;
+            } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_HOT)) {
+                fontValue = Graphics.FONT_NUMBER_HOT;
+                paddingValue = 5;
+            } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_MEDIUM)) {
+                fontValue = Graphics.FONT_NUMBER_MEDIUM;
+                paddingValue = 17;
+            } else {
+                fontValue = Graphics.FONT_NUMBER_MILD;
+                paddingValue = 17;
+            }
+
+            labelView.locY = labelView.locY + 5;
+            valueView.locY = valueView.locY + paddingValue;
+            valueView.setFont(fontValue);
+        }
         return true;
     }
 
