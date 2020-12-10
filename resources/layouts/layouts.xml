@@ -3,7 +3,7 @@
     <layout id="MainLayout">
         <drawable class="Background" />
         <drawable id="arrows"/>
-        <label id="label" x="center" y="center" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
+        <label id="label" x="center" y="top" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_TINY" />
         <label id="value" x="center" y="center" justification="Graphics.TEXT_JUSTIFY_CENTER" font="Graphics.FONT_LARGE"/>
     </layout>
 
