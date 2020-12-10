@@ -16,13 +16,6 @@ class SigmaSpeedView extends WatchUi.DataField {
     function initialize() {
         DataField.initialize();
         arrows = new Rez.Drawables.arrows();
-
-        var distanceUnits = System.getDeviceSettings().distanceUnits;
-
-        if (distanceUnits == System.UNIT_STATUTE) {
-            adjustment *= STATUTE_UNIT_FACTOR;
-            units = "m";
-        }
     }
 
     // Set your layout here. Anytime the size of obscurity of
@@ -88,6 +81,15 @@ class SigmaSpeedView extends WatchUi.DataField {
     // Note that compute() and onUpdate() are asynchronous, and there is no
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
+        var distanceUnits = System.getDeviceSettings().distanceUnits;
+
+        if (distanceUnits == System.UNIT_STATUTE) {
+            adjustment = 3.6f* STATUTE_UNIT_FACTOR;
+            units = "m";
+        } else {
+            units = "km";
+            adjustment = 3.6f;
+        }
         // See Activity.Info in the documentation for available information.
         if(info has :currentSpeed and info.currentSpeed != null) {
             var speed = info.currentSpeed;
