@@ -50,6 +50,11 @@ class SigmaSpeedView extends WatchUi.DataField {
 
             var labelView = View.findDrawableById("label");
             var valueView = View.findDrawableById("value");
+            var unitsView = View.findDrawableById("units");
+            var hoursView = View.findDrawableById("hours");
+
+            // unitsView.setText("km");
+            // hoursView.setText("h");
 
             labelView.setText(Rez.Strings.label);
             var heightAvailable = dc.getHeight() - dc.getFontHeight(Graphics.FONT_TINY) - 10; // max padding -> 10
@@ -132,6 +137,12 @@ class SigmaSpeedView extends WatchUi.DataField {
         var width = value.width * 0.1;
         var start = centerX - width;
         var end = centerX + width;
+
+        var centerXUnits = value.locX + value.width*0.65;
+        var centerYUnits = value.locY + value.height*0.1;
+        
+        dc.drawText(centerXUnits, centerYUnits, Graphics.FONT_TINY, "km", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(centerXUnits, centerYUnits + dc.getFontHeight(Graphics.FONT_TINY), Graphics.FONT_TINY, "h", Graphics.TEXT_JUSTIFY_LEFT);
 
         if (faster) {
         
