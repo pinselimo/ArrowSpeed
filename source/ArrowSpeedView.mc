@@ -137,11 +137,7 @@ class ArrowSpeedView extends WatchUi.DataField {
         var centerXUnits = valueView.locX + valueView.width*0.5+paddingUnits;
         var distanceUnits = System.getDeviceSettings().distanceUnits;
         var paddingUnits = fontUnits < Graphics.FONT_SMALL ? 3 : 5;
-        var units = "km";
-
-        if (distanceUnits == System.UNIT_STATUTE) {
-            units = "m";
-        }
+        var units = distanceUnits == System.UNIT_STATUTE ? "km" : "m";
         
         dc.drawText(centerXUnits, centerY - dc.getFontHeight(fontUnits), fontUnits, units, Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(centerXUnits, centerY, fontUnits, "h", Graphics.TEXT_JUSTIFY_LEFT);
