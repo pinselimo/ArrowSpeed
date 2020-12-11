@@ -1,6 +1,6 @@
 using Toybox.Application;
 
-class SigmaSpeedApp extends Application.AppBase {
+class ArrowSpeedApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
