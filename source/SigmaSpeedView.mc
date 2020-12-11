@@ -76,7 +76,7 @@ class SigmaSpeedView extends WatchUi.DataField {
                 paddingUnits = 3;
             }
 
-            labelView.locY = labelView.locY + 5;
+            labelView.locY = labelView.locY + 6;
             valueView.locY = valueView.locY + paddingValue;
             valueView.setFont(fontValue);
         }
