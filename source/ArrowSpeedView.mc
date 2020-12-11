@@ -81,9 +81,7 @@ class ArrowSpeedView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
         var distanceUnits = System.getDeviceSettings().distanceUnits;
-        var adjustment = 3.6f;
-        if (distanceUnits == System.UNIT_STATUTE) {
-            adjustment *= 3.6f* STATUTE_UNIT_FACTOR;
+        var adjustment = distanceUnits == System.UNIT_STATUTE ? 3.6f : 3.6f* STATUTE_UNIT_FACTOR;
         }
         // See Activity.Info in the documentation for available information.
         if(info has :currentSpeed and info.currentSpeed != null) {
