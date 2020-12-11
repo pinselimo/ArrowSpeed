@@ -9,7 +9,6 @@ class ArrowSpeedView extends WatchUi.DataField {
     hidden var value = "__._";
     hidden var faster = null;
     hidden var fontUnits = Graphics.FONT_TINY;
-    hidden var paddingUnits = 3;
     hidden var arrows;
 
     function initialize() {
@@ -58,22 +57,18 @@ class ArrowSpeedView extends WatchUi.DataField {
                 fontValue = Graphics.FONT_NUMBER_THAI_HOT;
                 fontUnits = Graphics.FONT_MEDIUM;
                 paddingValue = 5;
-                paddingUnits = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_HOT)) {
                 fontValue = Graphics.FONT_NUMBER_HOT;
                 fontUnits = Graphics.FONT_SMALL;
                 paddingValue = 5;
-                paddingUnits = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_MEDIUM)) {
                 fontValue = Graphics.FONT_NUMBER_MEDIUM;
                 fontUnits = Graphics.FONT_TINY;
                 paddingValue = 17;
-                paddingUnits = 3;
             } else {
                 fontValue = Graphics.FONT_NUMBER_MILD;
                 fontUnits = Graphics.FONT_XTINY;
                 paddingValue = 17;
-                paddingUnits = 3;
             }
 
             labelView.locY = labelView.locY + 6;
@@ -144,6 +139,7 @@ class ArrowSpeedView extends WatchUi.DataField {
 
         var centerXUnits = valueView.locX + valueView.width*0.5+paddingUnits;
         var distanceUnits = System.getDeviceSettings().distanceUnits;
+        var paddingUnits = fontUnits < Graphics.FONT_SMALL ? 3 : 5;
         var units = "km";
 
         if (distanceUnits == System.UNIT_STATUTE) {
