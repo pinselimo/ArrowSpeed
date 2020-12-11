@@ -51,26 +51,23 @@ class ArrowSpeedView extends WatchUi.DataField {
 
             labelView.setText(Rez.Strings.label);
             var heightAvailable = dc.getHeight() - dc.getFontHeight(Graphics.FONT_TINY) - 10; // max padding -> 10
-            var paddingValue, fontValue;
+            var fontValue;
 
             if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_THAI_HOT)) {
                 fontValue = Graphics.FONT_NUMBER_THAI_HOT;
                 fontUnits = Graphics.FONT_MEDIUM;
-                paddingValue = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_HOT)) {
                 fontValue = Graphics.FONT_NUMBER_HOT;
                 fontUnits = Graphics.FONT_SMALL;
-                paddingValue = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_MEDIUM)) {
                 fontValue = Graphics.FONT_NUMBER_MEDIUM;
                 fontUnits = Graphics.FONT_TINY;
-                paddingValue = 17;
             } else {
                 fontValue = Graphics.FONT_NUMBER_MILD;
                 fontUnits = Graphics.FONT_XTINY;
-                paddingValue = 17;
             }
 
+            var paddingValue = fontValue < FONT_NUMBER_HOT ? 17 : 5;
             labelView.locY = labelView.locY + 6;
             valueView.locY = valueView.locY + paddingValue;
             valueView.setFont(fontValue);
