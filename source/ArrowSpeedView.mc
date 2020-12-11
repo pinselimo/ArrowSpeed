@@ -67,7 +67,7 @@ class ArrowSpeedView extends WatchUi.DataField {
                 fontUnits = Graphics.FONT_XTINY;
             }
 
-            var paddingValue = fontValue < FONT_NUMBER_HOT ? 17 : 5;
+            var paddingValue = fontValue < Graphics.FONT_NUMBER_HOT ? 17 : 5;
             labelView.locY = labelView.locY + 6;
             valueView.locY = valueView.locY + paddingValue;
             valueView.setFont(fontValue);
