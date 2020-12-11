@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
 
-class SigmaSpeedView extends WatchUi.DataField {
+class ArrowSpeedView extends WatchUi.DataField {
 
     const STATUTE_UNIT_FACTOR = 0.621371f;
 
