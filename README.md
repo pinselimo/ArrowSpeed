@@ -1,8 +1,8 @@
-# &sigma Speed
+# Arrow Speed
 
 A Garmin data field that provides arrows indicating if the current speed is above or below the current average speed.
 
-These arrows are famously found on bicycle computers of another brand. Ever since I switched to Garmin I missed this small detail, so I went ahead and recreated it.
+These arrows are famously found on bicycle computers of another brand named after the greek letter $\sigma$. Ever since I switched to Garmin I missed this small detail, so I went ahead and recreated it.
 
 ## License
 
