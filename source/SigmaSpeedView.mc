@@ -10,6 +10,8 @@ class SigmaSpeedView extends WatchUi.DataField {
     hidden var faster = null;
     hidden var adjustment = 3.6f;
     hidden var units = "km";
+    hidden var fontUnits = Graphics.FONT_TINY;
+    hidden var paddingUnits = 3;
 
     var arrows;
 
@@ -57,16 +59,24 @@ class SigmaSpeedView extends WatchUi.DataField {
 
             if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_THAI_HOT)) {
                 fontValue = Graphics.FONT_NUMBER_THAI_HOT;
+                fontUnits = Graphics.FONT_MEDIUM;
                 paddingValue = 5;
+                paddingUnits = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_HOT)) {
                 fontValue = Graphics.FONT_NUMBER_HOT;
+                fontUnits = Graphics.FONT_SMALL;
                 paddingValue = 5;
+                paddingUnits = 5;
             } else if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_MEDIUM)) {
                 fontValue = Graphics.FONT_NUMBER_MEDIUM;
+                fontUnits = Graphics.FONT_TINY;
                 paddingValue = 17;
+                paddingUnits = 3;
             } else {
                 fontValue = Graphics.FONT_NUMBER_MILD;
+                fontUnits = Graphics.FONT_XTINY;
                 paddingValue = 17;
+                paddingUnits = 3;
             }
 
             labelView.locY = labelView.locY + 5;
@@ -139,10 +149,10 @@ class SigmaSpeedView extends WatchUi.DataField {
         var start = centerX - width;
         var end = centerX + width;
 
-        var centerXUnits = valueView.locX + valueView.width*0.5+5;
+        var centerXUnits = valueView.locX + valueView.width*0.5+paddingUnits;
         
-        dc.drawText(centerXUnits, centerY - dc.getFontHeight(Graphics.FONT_TINY), Graphics.FONT_TINY, units, Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(centerXUnits, centerY, Graphics.FONT_TINY, "h", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(centerXUnits, centerY - dc.getFontHeight(fontUnits), fontUnits, units, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(centerXUnits, centerY, fontUnits, "h", Graphics.TEXT_JUSTIFY_LEFT);
 
         if (faster != null) {
             if (faster) {
