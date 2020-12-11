@@ -8,12 +8,9 @@ class SigmaSpeedView extends WatchUi.DataField {
 
     hidden var value = "__._";
     hidden var faster = null;
-    hidden var adjustment = 3.6f;
-    hidden var units = "km";
     hidden var fontUnits = Graphics.FONT_TINY;
     hidden var paddingUnits = 3;
-
-    var arrows;
+    hidden var arrows;
 
     function initialize() {
         DataField.initialize();
@@ -92,13 +89,9 @@ class SigmaSpeedView extends WatchUi.DataField {
     // guarantee that compute() will be called before onUpdate().
     function compute(info) {
         var distanceUnits = System.getDeviceSettings().distanceUnits;
-
+        var adjustment = 3.6f;
         if (distanceUnits == System.UNIT_STATUTE) {
-            adjustment = 3.6f* STATUTE_UNIT_FACTOR;
-            units = "m";
-        } else {
-            units = "km";
-            adjustment = 3.6f;
+            adjustment *= 3.6f* STATUTE_UNIT_FACTOR;
         }
         // See Activity.Info in the documentation for available information.
         if(info has :currentSpeed and info.currentSpeed != null) {
@@ -150,6 +143,12 @@ class SigmaSpeedView extends WatchUi.DataField {
         var end = centerX + width;
 
         var centerXUnits = valueView.locX + valueView.width*0.5+paddingUnits;
+        var distanceUnits = System.getDeviceSettings().distanceUnits;
+        var units = "km";
+
+        if (distanceUnits == System.UNIT_STATUTE) {
+            units = "m";
+        }
         
         dc.drawText(centerXUnits, centerY - dc.getFontHeight(fontUnits), fontUnits, units, Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(centerXUnits, centerY, fontUnits, "h", Graphics.TEXT_JUSTIFY_LEFT);
