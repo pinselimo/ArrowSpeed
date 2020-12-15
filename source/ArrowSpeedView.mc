@@ -125,10 +125,10 @@ class ArrowSpeedView extends WatchUi.DataField {
 
         var offsetY = valueView.height * 0.1;
         var centerY = valueView.locY + valueView.height * 0.4;
-        var height = valueView.height * 0.3;
+        var height = valueView.height * 0.35;
 
         var centerX = valueView.locX - valueView.width*0.6 - 5;
-        var width = valueView.width * 0.1;
+        var width = valueView.width * 0.12;
         var start = centerX - width;
         var end = centerX + width;
 
