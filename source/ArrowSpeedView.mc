@@ -5,6 +5,7 @@ using Toybox.System;
 class ArrowSpeedView extends WatchUi.DataField {
 
     const STATUTE_UNIT_FACTOR = 0.621371f;
+    const MAX_PADDING = 10;
 
     hidden var value = "__._";
     hidden var faster = null;
@@ -16,11 +17,10 @@ class ArrowSpeedView extends WatchUi.DataField {
         arrows = new Rez.Drawables.arrows();
     }
 
-    // Set your layout here. Anytime the size of obscurity of
-    // the draw context is changed this will be called.
     function onLayout(dc) {
         var obscurityFlags = DataField.getObscurityFlags();
 
+        // TODO: Quadrant layouts are currently not properly supported
         // Top left quadrant so we'll use the top left layout
         if (obscurityFlags == (OBSCURE_TOP | OBSCURE_LEFT)) {
             View.setLayout(Rez.Layouts.TopLeftLayout(dc));
@@ -46,11 +46,8 @@ class ArrowSpeedView extends WatchUi.DataField {
             var unitsView = View.findDrawableById("units");
             var hoursView = View.findDrawableById("hours");
 
-            // unitsView.setText("km");
-            // hoursView.setText("h");
-
             labelView.setText(Rez.Strings.label);
-            var heightAvailable = dc.getHeight() - dc.getFontHeight(Graphics.FONT_TINY) - 10; // max padding -> 10
+            var heightAvailable = dc.getHeight() - dc.getFontHeight(Graphics.FONT_TINY) - MAX_PADDING;
             var fontValue;
 
             if (heightAvailable > dc.getFontHeight(Graphics.FONT_NUMBER_THAI_HOT)) {
@@ -75,15 +72,10 @@ class ArrowSpeedView extends WatchUi.DataField {
         return true;
     }
 
-    // The given info object contains all the current workout information.
-    // Calculate a value and save it locally in this method.
-    // Note that compute() and onUpdate() are asynchronous, and there is no
-    // guarantee that compute() will be called before onUpdate().
     function compute(info) {
         var distanceUnits = System.getDeviceSettings().distanceUnits;
         var adjustment = distanceUnits == System.UNIT_STATUTE ? 3.6f* STATUTE_UNIT_FACTOR : 3.6f;
         
-        // See Activity.Info in the documentation for available information.
         if(info has :currentSpeed and info.currentSpeed != null) {
             var speed = info.currentSpeed;
             value = (speed * adjustment).format("%.1f");
@@ -97,8 +89,6 @@ class ArrowSpeedView extends WatchUi.DataField {
         }
     }
 
-    // Display the value you computed here. This will be called
-    // once a second when the data field is visible.
     function onUpdate(dc) {
         if(dc has :setAntiAlias) {
             dc.setAntiAlias(true);
@@ -123,6 +113,7 @@ class ArrowSpeedView extends WatchUi.DataField {
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
 
+        // Draw arrows and units
         var offsetY = valueView.height * 0.1;
         var centerY = valueView.locY + valueView.height * 0.4;
         var height = valueView.height * 0.35;
