@@ -113,7 +113,7 @@ class ArrowSpeedView extends WatchUi.DataField {
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
 
-        // Draw arrows and units
+        // Calculate positioning for arrows
         var offsetY = valueView.height * 0.1;
         var centerY = valueView.locY + valueView.height * 0.4;
         var height = valueView.height * 0.35;
@@ -123,16 +123,19 @@ class ArrowSpeedView extends WatchUi.DataField {
         var start = centerX - width;
         var end = centerX + width;
 
+        // Calculate positioning for units
         var paddingUnits = fontUnits < Graphics.FONT_SMALL ? 3 : 5;
         var centerXUnits = valueView.locX + valueView.width*0.5+paddingUnits;
         var distanceUnits = System.getDeviceSettings().distanceUnits;
         var units = distanceUnits == System.UNIT_STATUTE ? "m" : "km";
         
+        // Draw units
         dc.drawText(centerXUnits, centerY - dc.getFontHeight(fontUnits), fontUnits, units, Graphics.TEXT_JUSTIFY_LEFT);
         dc.drawText(centerXUnits, centerY, fontUnits, "h", Graphics.TEXT_JUSTIFY_LEFT);
 
+        // Draw arrows
         if (faster != null) {
-            if (faster) {
+            if (faster) { // Arrow up
                 dc.fillPolygon(
                         [
                             [start, centerY - offsetY],
@@ -140,7 +143,7 @@ class ArrowSpeedView extends WatchUi.DataField {
                             [end, centerY - offsetY]
                         ]
                     );
-            } else {
+            } else { // Arrow down
                 dc.fillPolygon(
                         [
                             [start, centerY + offsetY],
