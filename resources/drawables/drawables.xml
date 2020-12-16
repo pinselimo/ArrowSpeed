@@ -1,7 +1,5 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
     <drawable-list id="arrows" background="Gfx.COLOR_TRANSPARENT">
-        <!--shape type="polygon" points="[[75%,50%],[72%,45%],[69%,50%]]" color="#000000"/>
-        <shape type="polygon" points="[[75%,57%],[72%,62%],[69%,57%]]" color="#000000"/ -->
     </drawable-list>
 </drawables>
